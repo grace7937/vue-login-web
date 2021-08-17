@@ -9,7 +9,9 @@
 				<label for="password">pw:</label>
 				<input id="password" type="text" v-model="password" />
 			</div>
-			<button type="submit">로그인</button>
+			<button V-bind:disabled="!isUsernameValid || !password" type="submit">
+				로그인
+			</button>
 			<p>{{ logMessage }}</p>
 		</form>
 	</div>
@@ -17,6 +19,7 @@
 
 <script>
 import { loginUser } from '@/api/index';
+import { validateEmail } from '@/utils/validation';
 export default {
 	data() {
 		return {
@@ -27,6 +30,11 @@ export default {
 			logMessage: '',
 		};
 	},
+	computed: {
+		isUsernameValid() {
+			return validateEmail(this.username);
+		},
+	},
 	methods: {
 		async submitForm() {
 			try {
@@ -35,10 +43,11 @@ export default {
 					password: this.password,
 				};
 				const { data } = await loginUser(userData);
+				this.$router.push('/main');
 				this.logMessage = `${data.user.username} 님 환영합니다.`;
 				this.initForm();
 			} catch (error) {
-				console.log(error.response.data);
+				this.logMessage = error.response.data;
 			}
 		},
 

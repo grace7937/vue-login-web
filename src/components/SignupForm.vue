@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { registerUser } from '@/api/index.js';
+import { registerUser } from '@/api/index';
+import { validateEmail } from '@/utils/validation';
 export default {
 	data() {
 		return {
@@ -29,6 +30,11 @@ export default {
 			//log
 			logMessage: '',
 		};
+	},
+	computed: {
+		isUsernameValid() {
+			return validateEmail(this.username);
+		},
 	},
 	methods: {
 		async submitForm() {
