@@ -22,11 +22,14 @@ export default {
 	data() {
 		return {
 			postItems: [],
+			isLoading: false,
 		};
 	},
 	methods: {
 		async fetchData() {
+			this.isLoading = true;
 			const { data } = await fetchPosts();
+			this.isLoading = false;
 			this.postItems = data.posts;
 		},
 	},
