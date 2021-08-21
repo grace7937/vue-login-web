@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<h1>Main</h1>
-		<ul>
+		<LoadingSpinner v-if="isLoading" />
+		<ul v-else>
 			<PostListItem
 				v-for="postItem in postItems"
 				:key="postItem._id"
@@ -13,11 +14,13 @@
 
 <script>
 import PostListItem from '@/components/posts/PostListItem.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 
 import { fetchPosts } from '@/api/index';
 export default {
 	components: {
 		PostListItem,
+		LoadingSpinner,
 	},
 	data() {
 		return {
