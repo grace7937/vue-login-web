@@ -9,6 +9,7 @@
 				:postItem="postItem"
 			/>
 		</ul>
+		<router-link to="/add" class="create-button">+</router-link>
 	</div>
 </template>
 

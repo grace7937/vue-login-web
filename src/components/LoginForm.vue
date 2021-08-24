@@ -18,9 +18,8 @@
 </template>
 
 <script>
-import { loginUser } from '@/api/index';
+// import { loginUser } from '@/api/index';
 import { validateEmail } from '@/utils/validation';
-import { saveAuthToCookie, saveUserToCookie } from '@/utils/cookies.js';
 
 export default {
 	data() {
@@ -44,12 +43,15 @@ export default {
 					username: this.username,
 					password: this.password,
 				};
-				const { data } = await loginUser(userData);
-
-				this.$store.commit('setToken', data.token);
+				await this.$store.dispatch('LOGIN', userData);
+				// const { data } = await loginUser(userData);
+				// this.$store.commit('setToken', data.token);
+				// this.$store.commit('setUsername', data.user.username);
+				// saveAuthToCookie(data.token);
+				// saveUserToCookie(data.user.username);
+				// console.log(this.$store.state.token);
+				// this.logMessage = `${data.user.username} 님 환영합니다.`;
 				this.$router.push('/main');
-				this.logMessage = `${data.user.username} 님 환영합니다.`;
-				this.$store.commit('setUsername', data.user.username);
 				this.initForm();
 			} catch (error) {
 				this.logMessage = error.response.data;
