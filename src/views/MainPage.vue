@@ -9,7 +9,9 @@
 				:postItem="postItem"
 			/>
 		</ul>
-		<router-link to="/add" class="create-button">+</router-link>
+		<router-link to="/add" class="create-button">
+			<ion-icon class="add_icon" name="add-circle-outline"></ion-icon>
+		</router-link>
 	</div>
 </template>
 
@@ -43,4 +45,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.add_icon {
+	width: 30px;
+	height: 30px;
+	color: #85144b;
+}
+</style>
