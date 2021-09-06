@@ -19,6 +19,11 @@ export default {
 			required: true,
 		},
 	},
+	filters: {
+		formatData(value) {
+			return new Date(value);
+		},
+	},
 	methods: {
 		async deleteItem() {
 			if (confirm('want ')) {
@@ -28,6 +33,7 @@ export default {
 			console.log('deleted');
 		},
 		routeEditPage() {
+			const id = this.postIem._id;
 			this.$router.push('/');
 		},
 	},

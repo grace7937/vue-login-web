@@ -25,6 +25,10 @@ const routes = [
 		component: () => import('@/views/Signup.vue'),
 	},
 	{
+		path: '/post/:id',
+		component: () => import('@/views/PostEditPage.vue'),
+	},
+	{
 		path: '*',
 		component: () => import('@/views/NotFoundPage.vue'),
 	},
