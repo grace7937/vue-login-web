@@ -33,6 +33,7 @@ export default {
 					title: this.title,
 					contents: this.contents,
 				});
+				this.$router.push('/main');
 				console.log(response.data.data);
 			} catch (error) {
 				console.log(error.response.data.message);

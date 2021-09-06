@@ -7,6 +7,7 @@
 				v-for="postItem in postItems"
 				:key="postItem._id"
 				:postItem="postItem"
+				@refresh="fetchData"
 			/>
 		</ul>
 		<router-link to="/add" class="create-button">
