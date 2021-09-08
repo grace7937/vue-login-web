@@ -13,6 +13,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { deleteCookie } from '@/utils/cookies';
 export default {
 	// data() {
 	// 	return {
