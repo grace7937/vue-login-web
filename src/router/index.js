@@ -5,10 +5,6 @@ Vue.use(VueRouter);
 
 const routes = [
 	{
-		path: '/main',
-		component: () => import('@/views/MainPage.vue'),
-	},
-	{
 		path: '/',
 		redirect: 'login',
 	},
@@ -17,16 +13,23 @@ const routes = [
 		component: () => import('@/views/Login.vue'),
 	},
 	{
-		path: '/add',
-		component: () => import('@/views/PostAddPage.vue'),
-	},
-	{
 		path: '/signup',
 		component: () => import('@/views/Signup.vue'),
 	},
 	{
+		path: '/add',
+		component: () => import('@/views/PostAddPage.vue'),
+		meta: { auth: true },
+	},
+	{
+		path: '/main',
+		component: () => import('@/views/MainPage.vue'),
+		meta: { auth: true },
+	},
+	{
 		path: '/post/:id',
 		component: () => import('@/views/PostEditPage.vue'),
+		meta: { auth: true },
 	},
 	{
 		path: '*',
@@ -39,5 +42,7 @@ const router = new VueRouter({
 	base: process.env.BASE_URL,
 	routes,
 });
+
+router.beforeEach((to, from, next) => {});
 
 export default router;
