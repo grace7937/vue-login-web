@@ -1,45 +1,50 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { loginUser } from '@/api/auth';
 import {
-	getAuthFromCookie,
-	getUserFromCookie,
 	saveAuthToCookie,
 	saveUserToCookie,
-} from '@/utils/cookies';
-import { loginUser } from '@/api/index';
+	getUserFromCookie,
+	deleteCookie,
+} from '@/utils/cookies.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		username: getUserFromCookie() || '',
-		token: getAuthFromCookie() || '',
+		user: {},
+		token: '',
 	},
 	getters: {
-		isLogin(state) {
-			return state.username !== '';
+		isLoggedIn(state) {
+			return !!state.token || getUserFromCookie();
+		},
+		userToken(state) {
+			return state.token;
 		},
 	},
 	mutations: {
-		setUsername(state, username) {
-			state.username = username;
+		SET_USER(state, user) {
+			state.user = user;
 		},
-		clearUsername(state) {
-			state.username = '';
-		},
-		setToken(state, token) {
+		SET_TOKEN(state, token) {
 			state.token = token;
+		},
+		LOGOUT(state) {
+			state.user = null;
+			state.token = null;
+			deleteCookie('til_auth');
+			deleteCookie('til_user');
 		},
 	},
 	actions: {
-		async LOGIN({ commit }, userData) {
-			const { data } = await loginUser(userData);
-			console.log(data.token);
-			commit('setToken', data.token);
-			commit('setUsername', data.user.username);
-			saveAuthToCookie(data.token);
-			saveUserToCookie(data.user.username);
-			return data;
+		async LOGIN({ commit }, data) {
+			const response = await loginUser(data);
+			commit('SET_USER', response.data.user);
+			commit('SET_TOKEN', response.data.token);
+			saveUserToCookie(response.data.user.username);
+			saveAuthToCookie(response.data.token);
+			return response;
 		},
 	},
 });
