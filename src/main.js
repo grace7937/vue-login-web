@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router';
+import router from './routes';
 import store from './store';
-import { formatDate } from '@/utils/filters';
+import * as filters from './utils/filters.js';
+
 Vue.config.productionTip = false;
+
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 new Vue({
 	router,

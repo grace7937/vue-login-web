@@ -1,13 +1,30 @@
-function deletePost(postId) {
-	return posts.delete(postId);
-}
-//학습 노트 1개를 조회하는 API
+import { posts } from './index';
 
-function fetchPost(postId) {
-	return posts.get(postId);
-}
-function editPost(postId) {
-	return posts.put(postId);
+// posts
+function createNewPost(data) {
+	return posts.post('/', data);
 }
 
-export { deletePost, fetchPost, editPost };
+function fetchPosts() {
+	return posts.get('/');
+}
+
+function fetchPostById(id) {
+	return posts.get(id);
+}
+
+function editPostById(id, data) {
+	return posts.put(id, data);
+}
+
+function deletePostById(id) {
+	return posts.delete(id);
+}
+
+export {
+	createNewPost,
+	fetchPosts,
+	fetchPostById,
+	editPostById,
+	deletePostById,
+};
